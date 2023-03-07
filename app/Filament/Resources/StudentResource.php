@@ -32,6 +32,9 @@ class StudentResource extends Resource
                     ->minLength('10'),
                 Forms\Components\TextInput::make('address_1'),
                 Forms\Components\TextInput::make('address_2'),
+                Forms\Components\Select::make('standard_id')
+                    ->required()
+                    ->relationship('standard', 'name')
             ]);
     }
 
@@ -39,7 +42,8 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('standard.name')->searchable(),
             ])
             ->filters([
                 //
