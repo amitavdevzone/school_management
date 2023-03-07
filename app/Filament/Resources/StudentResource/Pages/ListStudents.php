@@ -5,6 +5,7 @@ namespace App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListStudents extends ListRecords
 {
@@ -16,4 +17,10 @@ class ListStudents extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    protected function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()->orderByDesc('id');
+    }
+
 }
