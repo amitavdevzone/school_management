@@ -46,7 +46,8 @@ class StudentResource extends Resource
                 Tables\Columns\TextColumn::make('standard.name')->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('All standard')
+                    ->relationship('standard', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
