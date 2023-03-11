@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Events\PromoteStudent;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
@@ -12,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -76,6 +78,14 @@ class StudentResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\BulkAction::make('Promote all')
+                    ->action(function (Collection $records) {
+                        $records->each(function ($record) {
+                            event(new PromoteStudent($record));
+                        });
+                    })
+                    ->requiresConfirmation()
+                    ->deselectRecordsAfterCompletion()
             ]);
     }
 
