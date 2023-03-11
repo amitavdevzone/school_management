@@ -13,4 +13,9 @@ enum RelationType: string
     {
         return array_column(RelationType::cases(), 'value');
     }
+
+    public static function getKeyValues(): array
+    {
+        return array_column(RelationType::cases(), 'value', 'value');
+    }
 }
