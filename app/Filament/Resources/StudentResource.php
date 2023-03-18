@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Events\PromoteStudent;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
+use App\Models\Certificate;
 use App\Models\Student;
 use Filament\Forms;
 use Filament\GlobalSearch\Actions\Action;
@@ -43,6 +44,21 @@ class StudentResource extends Resource
                         Forms\Components\Select::make('standard_id')
                             ->required()
                             ->relationship('standard', 'name'),
+                    ]),
+                Forms\Components\Section::make('Certificates')
+                    ->description('Add student certificate information')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\Repeater::make('certificates')
+                            ->relationship()
+                            ->schema([
+                                Forms\Components\Select::make('certificate_id')
+                                    ->options(Certificate::all()->pluck('name', 'id'))
+                                    ->searchable()
+                                    ->required(),
+                                Forms\Components\TextInput::make('description')
+                            ])
+                            ->columns(2)
                     ]),
                 Forms\Components\Section::make('Medical information')
                     ->description('Add medical information about the student from the dropdown list')
