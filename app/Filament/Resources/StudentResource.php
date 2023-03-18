@@ -12,10 +12,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class StudentResource extends Resource
 {
@@ -29,18 +27,39 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->minLength('3')
-                    ->maxLength('255'),
-                Forms\Components\TextInput::make('student_id')
-                    ->required()
-                    ->minLength('10'),
-                Forms\Components\TextInput::make('address_1'),
-                Forms\Components\TextInput::make('address_2'),
-                Forms\Components\Select::make('standard_id')
-                    ->required()
-                    ->relationship('standard', 'name')
+                Forms\Components\Section::make('Personal info')
+                    ->description('Add student personal information')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->minLength('3')
+                            ->maxLength('255'),
+                        Forms\Components\TextInput::make('student_id')
+                            ->required()
+                            ->minLength('10'),
+                        Forms\Components\TextInput::make('address_1'),
+                        Forms\Components\TextInput::make('address_2'),
+                        Forms\Components\Select::make('standard_id')
+                            ->required()
+                            ->relationship('standard', 'name'),
+                    ]),
+                Forms\Components\Section::make('Medical information')
+                    ->description('Add medical information about the student from the dropdown list')
+                    ->collapsible()
+                    ->collapsed()
+                    ->schema([
+                        Forms\Components\Repeater::make('vitals')
+                            ->schema([
+                                Forms\Components\Select::make('name')
+                                    ->options(config('sm_config.vitals'))
+                                    ->required(),
+                                Forms\Components\TextInput::make('value')
+                                    ->required()
+                                    ->maxLength(255),
+                            ])
+                            ->columns(2)
+                    ])
             ]);
     }
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address_1');
             $table->string('address_2');
             $table->foreignIdFor(Standard::class);
+            $table->json('vitals')->nullable();
             $table->timestamps();
         });
     }
