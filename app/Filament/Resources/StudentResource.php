@@ -85,6 +85,7 @@ class StudentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('standard.name')->searchable(),
+                Tables\Columns\TextColumn::make('dob')->label('Age'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('All standard')
