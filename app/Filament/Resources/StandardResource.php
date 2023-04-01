@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\StandardResource\Pages;
-use App\Filament\Resources\StandardResource\RelationManagers;
 use App\Models\Standard;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class StandardResource extends Resource
 {
@@ -26,7 +23,7 @@ class StandardResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()->maxLength(10),
                 Forms\Components\TextInput::make('class_number')
-                    ->required()->numeric()->maxValue(10)
+                    ->required()->numeric()->maxValue(10),
             ]);
     }
 

@@ -22,5 +22,4 @@ class ListStudents extends ListRecords
     {
         return parent::getTableQuery()->orderByDesc('id');
     }
-
 }

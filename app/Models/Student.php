@@ -15,32 +15,23 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'student_id', 'address_1', 'address_2', 'standard_id', 'vitals', 'dob'
+        'name', 'student_id', 'address_1', 'address_2', 'standard_id', 'vitals', 'dob',
     ];
 
     protected $casts = [
-        'vitals' => 'json'
+        'vitals' => 'json',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function standard(): BelongsTo
     {
         return $this->belongsTo(Standard::class);
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function guardians(): BelongsToMany
     {
         return $this->belongsToMany(Guardian::class);
     }
 
-    /**
-     * @return HasMany
-     */
     public function certificates(): HasMany
     {
         return $this->hasMany(CertificateStudent::class);
@@ -49,7 +40,7 @@ class Student extends Model
     protected function dob(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => Carbon::parse($value)->age
+            get: fn (string $value) => Carbon::parse($value)->age
         );
     }
 }

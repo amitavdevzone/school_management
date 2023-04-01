@@ -8,8 +8,6 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GuardiansRelationManager extends RelationManager
 {
@@ -28,7 +26,7 @@ class GuardiansRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('relation_type')
-                    ->options(RelationType::getKeyValues())
+                    ->options(RelationType::getKeyValues()),
             ]);
     }
 
@@ -43,7 +41,7 @@ class GuardiansRelationManager extends RelationManager
             ->filters([
                 Tables\Filters\SelectFilter::make('relation_type')
                     ->multiple()
-                    ->options(RelationType::getKeyValues())
+                    ->options(RelationType::getKeyValues()),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),

@@ -12,9 +12,6 @@ class Guardian extends Model
 
     protected $fillable = ['name', 'contact_number', 'relation_type'];
 
-    /**
-     * @return BelongsToMany
-     */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class);

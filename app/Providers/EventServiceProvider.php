@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Events\PromoteStudent;
-use App\Listeners\SendPromotedEmail;
 use App\Listeners\UpdateStudentStandard;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         PromoteStudent::class => [
             UpdateStudentStandard::class,
-        ]
+        ],
     ];
 
     /**

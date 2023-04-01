@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-         \App\Models\User::factory()->create([
-             'name' => 'Amitav Roy',
-             'email' => 'reachme@amitavroy.com',
-             'password' => bcrypt('Password@123'),
-         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Amitav Roy',
+            'email' => 'reachme@amitavroy.com',
+            'password' => bcrypt('Password@123'),
+        ]);
 
-         Student::factory(10)
-             ->has(Guardian::factory()->count(3))
-             ->create();
+        Student::factory(10)
+            ->has(Guardian::factory()->count(3))
+            ->create();
 
-         $this->call(StandardSeeder::class);
+        $this->call(StandardSeeder::class);
     }
 }

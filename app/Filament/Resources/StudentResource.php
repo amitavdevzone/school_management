@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Events\PromoteStudent;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
+use App\Filament\Resources\StudentResource\Widgets\StudentAttendanceWidget;
 use App\Models\Certificate;
 use App\Models\Student;
 use Filament\Forms;
@@ -56,9 +57,9 @@ class StudentResource extends Resource
                                     ->options(Certificate::all()->pluck('name', 'id'))
                                     ->searchable()
                                     ->required(),
-                                Forms\Components\TextInput::make('description')
+                                Forms\Components\TextInput::make('description'),
                             ])
-                            ->columns(2)
+                            ->columns(2),
                     ]),
                 Forms\Components\Section::make('Medical information')
                     ->description('Add medical information about the student from the dropdown list')
@@ -74,8 +75,8 @@ class StudentResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                             ])
-                            ->columns(2)
-                    ])
+                            ->columns(2),
+                    ]),
             ]);
     }
 
@@ -89,7 +90,7 @@ class StudentResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('All standard')
-                    ->relationship('standard', 'name')
+                    ->relationship('standard', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -121,14 +122,14 @@ class StudentResource extends Resource
                         });
                     })
                     ->requiresConfirmation()
-                    ->deselectRecordsAfterCompletion()
+                    ->deselectRecordsAfterCompletion(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\GuardiansRelationManager::class
+            RelationManagers\GuardiansRelationManager::class,
         ];
     }
 
@@ -155,7 +156,14 @@ class StudentResource extends Resource
             Action::make('Edit')
                 ->iconButton()
                 ->icon('heroicon-s-pencil')
-                ->url(static::getUrl('edit', ['record' => $record]))
+                ->url(static::getUrl('edit', ['record' => $record])),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            StudentAttendanceWidget::class,
         ];
     }
 }
