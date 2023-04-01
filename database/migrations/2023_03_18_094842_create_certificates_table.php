@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->boolean('is_active')->default(1)->index();
+            $table->string('certificate_image')->nullable();
             $table->timestamps();
         });
 
