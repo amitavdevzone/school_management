@@ -16,4 +16,12 @@ class EditStudent extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            StudentResource\Widgets\StudentAttendanceWidget::class,
+            StudentResource\Widgets\StudentCertWidget::class,
+        ];
+    }
 }

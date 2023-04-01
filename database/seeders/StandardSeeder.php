@@ -17,7 +17,7 @@ class StandardSeeder extends Seeder
         for ($i = 1; $i <= 10; $i++) {
             $data->push([
                 'name' => "Std {$i}",
-                'class_number' => $i
+                'class_number' => $i,
             ]);
         }
 

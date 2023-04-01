@@ -12,9 +12,6 @@ class Standard extends Model
 
     protected $fillable = ['name', 'class_number'];
 
-    /**
-     * @return HasMany
-     */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
