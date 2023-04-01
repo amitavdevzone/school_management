@@ -12,6 +12,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\TemporaryUploadedFile;
 
 class CertificateResource extends Resource
 {
@@ -26,7 +27,9 @@ class CertificateResource extends Resource
                 Forms\Components\TextInput::make('name'),
                 Forms\Components\MarkdownEditor::make('description'),
                 Forms\Components\Toggle::make('is_active')->default(true),
-                Forms\Components\FileUpload::make('certificate_image'),
+                Forms\Components\FileUpload::make('certificate_image')
+                    ->directory('certificate-images')
+                    ->storeFileNamesIn('original_filename'),
             ]);
     }
 

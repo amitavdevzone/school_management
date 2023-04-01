@@ -10,6 +10,6 @@ class Certificate extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'is_active', 'certificate_image',
+        'name', 'description', 'is_active', 'certificate_image', 'original_filename',
     ];
 }
