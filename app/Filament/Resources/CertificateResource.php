@@ -20,12 +20,15 @@ class CertificateResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name'),
-                Forms\Components\MarkdownEditor::make('description'),
-                Forms\Components\Toggle::make('is_active')->default(true),
-                Forms\Components\FileUpload::make('certificate_image')
-                    ->directory('certificate-images')
-                    ->storeFileNamesIn('original_filename'),
+                Forms\Components\Card::make([
+                    Forms\Components\TextInput::make('name'),
+                    Forms\Components\Toggle::make('is_active')->default(true),
+                    Forms\Components\MarkdownEditor::make('description')->columnSpan(2),
+                    Forms\Components\FileUpload::make('certificate_image')
+                        ->columns(1)
+                        ->directory('certificate-images')
+                        ->storeFileNamesIn('original_filename'),
+                ])->columns(2),
             ]);
     }
 

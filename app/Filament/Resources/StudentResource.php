@@ -32,19 +32,40 @@ class StudentResource extends Resource
                 Forms\Components\Section::make('Personal info')
                     ->description('Add student personal information')
                     ->collapsible()
+                    ->columns(2)
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
                             ->minLength('3')
                             ->maxLength('255'),
+                        Forms\Components\DatePicker::make('dob')
+                            ->required()
+                            ->default(now()->subYears(5))
+                            ->maxDate(now()->subYears(4)),
                         Forms\Components\TextInput::make('student_id')
                             ->required()
-                            ->minLength('10'),
+                            ->minLength('5'),
                         Forms\Components\TextInput::make('address_1'),
                         Forms\Components\TextInput::make('address_2'),
                         Forms\Components\Select::make('standard_id')
                             ->required()
                             ->relationship('standard', 'name'),
+                    ]),
+                Forms\Components\Section::make('Medical information')
+                    ->description('Add medical information about the student from the dropdown list')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\Repeater::make('vitals')
+                            ->schema([
+                                Forms\Components\Select::make('name')
+                                    ->options(config('sm_config.vitals'))
+                                    ->required(),
+                                Forms\Components\TextInput::make('value')
+                                    ->required()
+                                    ->maxLength(255),
+                            ])
+                            ->defaultItems(0)
+                            ->columns(2),
                     ]),
                 Forms\Components\Section::make('Certificates')
                     ->description('Add student certificate information')
@@ -59,22 +80,7 @@ class StudentResource extends Resource
                                     ->required(),
                                 Forms\Components\TextInput::make('description'),
                             ])
-                            ->columns(2),
-                    ]),
-                Forms\Components\Section::make('Medical information')
-                    ->description('Add medical information about the student from the dropdown list')
-                    ->collapsible()
-                    ->collapsed()
-                    ->schema([
-                        Forms\Components\Repeater::make('vitals')
-                            ->schema([
-                                Forms\Components\Select::make('name')
-                                    ->options(config('sm_config.vitals'))
-                                    ->required(),
-                                Forms\Components\TextInput::make('value')
-                                    ->required()
-                                    ->maxLength(255),
-                            ])
+                            ->defaultItems(0)
                             ->columns(2),
                     ]),
             ]);
