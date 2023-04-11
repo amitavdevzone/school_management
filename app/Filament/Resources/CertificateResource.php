@@ -26,7 +26,11 @@ class CertificateResource extends Resource
                     Forms\Components\MarkdownEditor::make('description')->columnSpan(2),
                     Forms\Components\FileUpload::make('certificate_image')
                         ->columns(1)
+                        ->multiple()
                         ->directory('certificate-images')
+                        ->enableReordering()
+                        ->enableDownload()
+                        ->enableOpen()
                         ->storeFileNamesIn('original_filename'),
                 ])->columns(2),
             ]);
