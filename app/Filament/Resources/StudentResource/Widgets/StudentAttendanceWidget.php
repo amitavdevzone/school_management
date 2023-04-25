@@ -36,6 +36,7 @@ class StudentAttendanceWidget extends Widget
                     ->button()
                     ->color('danger')->emit('undoIncrement'),
             ])
+            ->sendToDatabase(auth()->user())
             ->send();
     }
 
